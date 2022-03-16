@@ -1,34 +1,53 @@
 import Link from "next/link";
-import { Squash as Hamburger } from 'hamburger-react'
-import { useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react/cjs/react.development";
+import { faBars, faCoffee, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 
 function NavBar() {
 
+    const [isOpen, setOpen] = useState(false)
+    const [styleList, setStyleList] = useState('-200px')
+    const [displayNabBar, setDisplayNabBar] = useState('block')
+    const [displayClose, setDisplayClose] = useState('none')
+    useEffect(()=>{
+
+    },[])
+
     const pages = [
+        { title: 'Inicio', href: '/' },
         { title: 'Series', href: '/serie' },
         { title: 'Peliculas', href: '/pelicula' },
-        { title: 'Categorias', href: '/categoria' },
-        { title: 'Inicio', href: '/' }
+        { title: 'Categorias', href: '/categoria' }
     ];
 
-    const [isOpen, setOpen] = useState(false)
 
+    const toggleOpen = ()=>{
+        setStyleList('3.5rem')
+        setDisplayNabBar('none')
+        setDisplayClose('block')
+    }
+    const toggleClose = ()=>{
+        setStyleList('-200px')
+        setDisplayNabBar('block')
+        setDisplayClose('none')
+    }
 
 
     return (
         <>
-            <nav className='navBar flex flex-row fixed top-0 w-screen justify-center '>
-                <Hamburger className='hidden absolute left-0 justify-self-start' toggled={isOpen} toggle={setOpen} color="#fff" size={10} />
-                <ul className='bg-black block absolute top-14 left-0 flex flex-col justify-start items-center text-white'>
+                <ul style={{top:styleList}} className={`listNavBarMobile duration-1000 z-40 bg-black block absolute  left-0 flex flex-col justify-start items-center text-white`}>
                     {
                         pages.map((list) => (
                             <li className='p-2 w-full'><Link href={list.href}><a> {list.title} </a></Link></li>
                         ))
                     }
                 </ul>
-                <Link href='/'><img src="img/logo.svg" className='w-28 p-2 ' /></Link>
+            <nav className='navBar flex flex-row fixed top-0 w-screen z-50 '>
+            <FontAwesomeIcon style={{display:displayClose}} onClick={toggleClose} className='text-white w-3.5  absolute top-0 bottom-0 left-3.5 m-auto cursor-pointer' icon={faXmark} />
+            <FontAwesomeIcon style={{display:displayNabBar}} onClick={toggleOpen} className='text-white w-3.5  absolute top-0 bottom-0 left-3.5 m-auto cursor-pointer' icon={faBars} />
+                <Link href='/'><img src="img/logo.svg" className='w-28 p-2 my-0 mx-auto ' /></Link>
                 <ul className='hidden '>
                     {
                         pages.map((list) => (
@@ -39,11 +58,8 @@ function NavBar() {
             </nav>
             <style jsx>{`
             .navBar{
-                backdrop-filter: blur(10px);
-                background: #0009
-            }
-            .hamburger-react{
-                display: none;
+                
+                background: #000;
             }
             `}</style>
         </>
