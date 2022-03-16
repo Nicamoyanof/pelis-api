@@ -1,5 +1,5 @@
 
-
+import Image from 'next/image'
 
 
 const imgUrlTrailer = 'https://occ-0-4799-185.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABaTciS03BhENGzmipy3mpl3HXzLNGB0f5TID9CfhW_xBXCXXxRYEuZdOqvaJK7SZEPNlQLwFvatJ7OIi60ZU4_gnqFD5.webp?r=e96'
@@ -20,10 +20,10 @@ const BtnDesktop = () => {
     return (
         <span className='flex justify-between w-3/6'>
             <button className={classBtnDesktop} >
-                Reproducir 
+                Reproducir
             </button>
             <button className={classBtnDesktop}>
-                Mas Info 
+                Mas Info
             </button>
         </span>
     )
@@ -36,7 +36,12 @@ function TrailerHome() {
 
             <div id='imgTrailer' className="w-screen h-full mt-12 max-h-screen "></div>
             <div className='lg:p-10 p-4 justify-evenly absolute top-0 z-20 h-full flex flex-col' >
-                <img className='w-2/6 lg:w-3/6' src='https://occ-0-4799-185.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABeeG_UFNIumdscqC3GMV9p7JIwdEv7R594l99naX9T-qxUHcrQN7PlJOizh2m0xwxvfdPDa6BTmyOeoJ-YMEdixaIen_S7XXCaXhNiiMd_D6O76EA_PBfigNp98yVdx7VRD66MrmEq3616gj76C538YROOPCWfWONMMwDr3PgXvooQ.webp?r=c95' />
+                <Image
+                className='w-2/6 lg:w-3/6'
+                    loader={myLoader}
+                    src="https://occ-0-4799-185.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABeeG_UFNIumdscqC3GMV9p7JIwdEv7R594l99naX9T-qxUHcrQN7PlJOizh2m0xwxvfdPDa6BTmyOeoJ-YMEdixaIen_S7XXCaXhNiiMd_D6O76EA_PBfigNp98yVdx7VRD66MrmEq3616gj76C538YROOPCWfWONMMwDr3PgXvooQ.webp?r=c95"
+                    alt="Picture of the author"
+                />
                 <BtnDesktop />
                 <BtnResponsive />
             </div>

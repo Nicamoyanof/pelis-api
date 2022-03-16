@@ -40,7 +40,7 @@ function NavBar() {
                 <ul style={{top:styleList}} className={`listNavBarMobile duration-1000 z-40 bg-black block absolute  left-0 flex flex-col justify-start items-center text-white`}>
                     {
                         pages.map((list) => (
-                            <li className='p-2 w-full'><Link href={list.href}><a> {list.title} </a></Link></li>
+                            <li key={list.title} className='p-2 w-full'><Link href={list.href}><a> {list.title} </a></Link></li>
                         ))
                     }
                 </ul>
@@ -51,7 +51,7 @@ function NavBar() {
                 <ul className='hidden '>
                     {
                         pages.map((list) => (
-                            <li className='p-2'><Link href={list.href}><a> {list.title} </a></Link></li>
+                            <li key={list.title} className='p-2'><Link href={list.href}><a> {list.title} </a></Link></li>
                         ))
                     }
                 </ul>
