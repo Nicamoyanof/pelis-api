@@ -16,10 +16,10 @@ function NavBar() {
     },[])
 
     const pages = [
-        { title: 'Inicio', href: '/' },
-        { title: 'Series', href: '/serie' },
-        { title: 'Peliculas', href: '/pelicula' },
-        { title: 'Categorias', href: '/categoria' }
+        { title: 'Inicio', href: '' },
+        { title: 'Series', href: 'serie' },
+        { title: 'Peliculas', href: 'pelicula' },
+        { title: 'Categorias', href: 'categoria' }
     ];
 
 
