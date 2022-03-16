@@ -2,9 +2,9 @@
   "name": "pelis-api",
   "version": "0.1.0",
   "private": true,
-  "homepage":"https://nicamoyanof.github.io/pelis-api",
+  "homepage": "https://nicamoyanof.github.io/pelis-api",
   "scripts": {
-    "predeploy" : "npm run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "dev": "next dev",
     "build": "next build",
@@ -12,15 +12,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "hamburger-react": "^2.4.1",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.3",
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^3.2.3",
+    "postcss": "^8.4.11",
+    "tailwindcss": "^3.0.23"
   }
 }
-
-
