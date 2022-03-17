@@ -1,9 +1,22 @@
-import React from 'react'
+import { useEffect } from "react/cjs/react.development";
+import { getStaticProps } from "../../components/getStaticProps"
 
-function index() {
+
+
+function Index({props}) {
+  useEffect(()=>{
+
+    getStaticProps();
+  },[])
   return (
     <div>index</div>
   )
 }
 
-export default index
+Index.getStaticProps = (context)=> {
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+}
+
+export default Index
