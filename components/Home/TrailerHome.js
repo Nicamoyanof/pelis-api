@@ -1,5 +1,5 @@
 
-import Image from 'next/image'
+// import Image from 'next/image'
 
 
 const imgUrlTrailer = 'https://occ-0-4799-185.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABaTciS03BhENGzmipy3mpl3HXzLNGB0f5TID9CfhW_xBXCXXxRYEuZdOqvaJK7SZEPNlQLwFvatJ7OIi60ZU4_gnqFD5.webp?r=e96'

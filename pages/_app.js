@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <link href="styles/globals.css" rel="stylesheet" />
+        <link href="../styles/globals.css" rel="stylesheet" />
       </Head>
       <NavBar />
       <Component {...pageProps} />
