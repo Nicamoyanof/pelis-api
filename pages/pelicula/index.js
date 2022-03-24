@@ -1,7 +1,9 @@
 
 function index() {
   return (
-    <div>index</div>
+    <div>
+      <h1 className="text-white">Hola</h1>
+    </div>
   )
 }
 
