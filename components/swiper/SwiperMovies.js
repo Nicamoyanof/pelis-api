@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
 import ImgSwiper from "./imgSwiper";
+import { getId } from "../../redux/SeriePage/SeriePage-actions";
 
 const breakpoint = {
   300: {
@@ -48,13 +49,16 @@ const breakpoint = {
   },
 };
 
+
+
 export function SwiperMovie(props) {
+  console.log(props )
   const list = props.list;
 
   if (list != undefined) {
     return (
       <div className="pl-3 my-10">
-        <Link href={`${props.url}/categoria/${props.category.id}`}>
+        <Link onClick={()=>props.getId(props.category.id)} href={`${props.url}/categoria/${props.category.id}`}>
           <a>
             <h3 className="lg:text-2xl text-red-100 text-lg font-medium mb-8 uppercase">
               {props.category.name}
@@ -72,7 +76,7 @@ export function SwiperMovie(props) {
             <SwiperSlide key={index} className="h-full w-full swiperContainImg">
               <Link href={`/${props.url}/${item.id}`}>
                 <a>
-                  <ImgSwiper img={item.poster_path} />
+                  <ImgSwiper img={item.poster_path} hover={true} />
                 </a>
               </Link>
             </SwiperSlide>
@@ -96,3 +100,6 @@ export function SwiperMovie(props) {
   }
   return <h1>Error</h1>;
 }
+
+
+export default SwiperMovie

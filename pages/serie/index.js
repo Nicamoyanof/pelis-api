@@ -15,7 +15,7 @@ export default function Index(props) {
  console.log(props.genres)
   useEffect(async () => {
     await props.genres.map((genr) => {
-      getTotalList(genr.id).then((value) => arrListSeries.push(value));
+      getTotalList('tv' , genr.id).then((value) => arrListSeries.push(value));
     });
     if (typeof arrListSeries !== "undefined" && arrListSeries.length > 0) {
       console.log(arrListSeries);
@@ -23,7 +23,7 @@ export default function Index(props) {
 
     setList(await Promise.all(
       props.genres.map(async (item) => {
-        return await getTotalList(item.id);
+        return await getTotalList('tv', item.id);
       })
     ));
 
@@ -58,7 +58,7 @@ export default function Index(props) {
 export async function getStaticProps() {
   // Instead of fetching your `/api` route you can call the same
   // function directly in `getStaticProps`
-  const list = await getGenres();
+  const list = await getGenres('tv');
 
   // Props returned will be passed to the page component
 

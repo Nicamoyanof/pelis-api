@@ -2,6 +2,8 @@ import Footer from "../components/footer/Footer";
 import NavBar from "../components/navBar/NavBar";
 import "../styles/globals.css";
 import Head from "next/head";
+import { Provider } from "react-redux";
+import {store, wrapper } from "../redux/strore";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -16,11 +18,12 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <NavBar />
-      <Component {...pageProps} />
-
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
       <Footer />
     </>
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
