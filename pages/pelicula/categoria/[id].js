@@ -1,6 +1,6 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState, useRef } from "react/cjs/react.development";
+import { UseEffect, UseState, UseRef } from "react";
 import ImgSwiper from "../../../components/swiper/imgSwiper";
 import Link from "next/link";
 import { getPageMovieTotal } from "../../api/movies/movies";
@@ -8,13 +8,13 @@ import { getGenres } from "../../api/genres/genres";
 
 function Index(props) {
   if (props.listaTotal) {
-    const [totalMovie, setTotalMovie] = useState(18);
-    const [totalList, setTotalList] = useState(
+    const [totalMovie, setTotalMovie] = UseState(18);
+    const [totalList, setTotalList] = UseState(
       props.listaTotal.slice(0, totalMovie)
     );
 
     const getGenres = props.genresTotal.genres.find((x) => x.id == props.id);
-    useEffect(() => {}, [totalMovie]);
+    UseEffect(() => {}, [totalMovie]);
 
     const searchMovie = (e) => {
       setTotalList(

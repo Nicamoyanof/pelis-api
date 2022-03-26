@@ -12,20 +12,27 @@ export default function Index(props) {
   const [list, setList] = useState();
 
   const arrListSeries = [];
-  useEffect(async () => {
-    await props.list.genres.map((genr) => {
+
+  useEffect( () => {
+    async function fetchData(){
+      await props.list.genres.map((genr) => {
       getTotalList('tv' , genr.id).then((value) => arrListSeries.push(value));
     });
+    }
+    fetchData();
 
-    setList(await Promise.all(
+    async function fetchList(){
+      setList(await Promise.all(
       props.list.genres.map(async (item) => {
         return await getTotalList('tv', item.id);
       })
     ));
+    }
+    fetchList();
+    
 
   }, []);
 
-  // const mapFinal = Array.from(serieTotal?serieTotal:'')
 
   if (list) {
     

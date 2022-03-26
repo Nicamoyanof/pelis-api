@@ -1,17 +1,17 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react/cjs/react.development";
+import { UseRouter } from "next/router";
+import { UseEffect, UseState } from "react";
 import { SwiperMovie } from "../../components/swiper/SwiperMovies";
 import { getActorId, getActorMovies, getActorSerie } from "../api/actores/id";
 
 function index() {
-  const router = useRouter();
+  const router = UseRouter();
   const slug = router.query.id;
 
-  const [actorId, setActorId] = useState();
-  const [movieActor, setMovieActor] = useState();
-  const [serieActor, setSerieActor] = useState();
+  const [actorId, setActorId] = UseState();
+  const [movieActor, setMovieActor] = UseState();
+  const [serieActor, setSerieActor] = UseState();
 
-  useEffect(() => {
+  UseEffect(() => {
     getActorId(slug).then((val) => setActorId(val));
     getActorMovies(slug).then((val) => setMovieActor(val));
     getActorSerie(slug).then((val) => setSerieActor(val));

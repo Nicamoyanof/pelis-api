@@ -1,22 +1,19 @@
-// import { useEffect, useState } from "react/cjs/react.production.min";
-import { useState, useEffect } from "react/cjs/react.development";
+import { UseState, UseEffect } from "react";
 import TrailerHome from "../../components/Home/TrailerHome";
 import { SwiperMovie } from "../../components/swiper/SwiperMovies";
-import styles from "../../styles/Home.module.css";
 import { getGenres, getTotalList } from "../api/genres/genres";
-import { getMovieGenres, getMoviesPopular, getMovieTrailer } from "../api/movies/movies";
-import { getSerieGenres, getSeriesPopular } from "../api/series/series";
+import { getMovieTrailer } from "../api/movies/movies";
 
 export default function Index(props) {
   
 
 
-  const [list, setList] = useState();
+  const [list, setList] = UseState();
 
   const arrListSeries = [];
   
 
-  useEffect(async () => {
+  UseEffect(async () => {
 
 
 
@@ -44,7 +41,7 @@ export default function Index(props) {
         <TrailerHome movie={props.imgTrailer} link={'pelicula'} />
         {list.map((item, index) => {
           return (
-            <SwiperMovie kay={index} list={item.results} category={props.list.genres[index]} url="pelicula" />
+            <SwiperMovie key={index} list={item.results} category={props.list.genres[index]} url="pelicula" />
           );
         })}
 

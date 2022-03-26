@@ -1,6 +1,6 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState , useRef } from "react/cjs/react.development";
+import { UseEffect, UseState  } from "react";
 import ImgSwiper from "../../../components/swiper/imgSwiper";
 import Link from "next/link";
 import { getGenres } from "../../api/genres/genres";
@@ -8,17 +8,11 @@ import { getPageSerieTotal } from "../../api/series/series";
 
 function Index(props) {
   if (props.listaTotal) {
-    const [totalMovie, setTotalMovie] = useState(18)
-    const [totalList , setTotalList] = useState(props.listaTotal.slice(0,totalMovie));
+    const [totalMovie, setTotalMovie] = UseState(18)
+    const [totalList , setTotalList] = UseState(props.listaTotal.slice(0,totalMovie));
 
-    const moviesRef = useRef()
-
-    // const lastMovie = moviesRef.current;
-    // let coords = lastMovie.getBoundingClientRect();
-
-    
     const getGenres = props.genresTotal.genres.find((x) => x.id == props.id);
-    useEffect(() => {
+    UseEffect(() => {
 
 
     }, [totalMovie ]);

@@ -1,10 +1,7 @@
-import { faCircleInfo, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useEffect } from "react/cjs/react.development";
 
-const imgUrlTrailer =
-  "https://occ-0-4799-185.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABaTciS03BhENGzmipy3mpl3HXzLNGB0f5TID9CfhW_xBXCXXxRYEuZdOqvaJK7SZEPNlQLwFvatJ7OIi60ZU4_gnqFD5.webp?r=e96";
 const classBtn =
   "h-10 w-10 p-2 m-5 top-0 bottom-0  items-center flex justify-center rounded-full bg-slate-100  hover:bg-cyan-600 md:h-14 md:w-14 md:m-5";
 
@@ -22,9 +19,6 @@ const BtnResponsive = (props) => {
 function TrailerHome( props ) {
   
   if(props){
-    
-    useEffect(()=>{
-    },[])
 
     return (
     <div className="h-full relative">

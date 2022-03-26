@@ -1,22 +1,22 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react/cjs/react.development";
+import { UseRouter } from "next/router";
+import { UseEffect, UseState } from "react";
 import { SwiperMovie } from "../../../components/swiper/SwiperMovies";
 import { getMovieCredits, getMovieId } from "../../api/movies/id";
 import { getMoviesSimilar } from "../../api/movies/movies";
 
 function index() {
-  const router = useRouter();
+  const router = UseRouter();
   const slug = router.query.id;
 
   
 
-  const [moviePage, setMoviePage] = useState();
-  const [movieSimilar, setMovieSimilar] = useState();
-  const [castCredits, setCastCredits] = useState();
-  const [crewCredits, setCrewCredits] = useState();
+  const [moviePage, setMoviePage] = UseState();
+  const [movieSimilar, setMovieSimilar] = UseState();
+  const [castCredits, setCastCredits] = UseState();
+  const [crewCredits, setCrewCredits] = UseState();
 
-  useEffect(() => {
+  UseEffect(() => {
     getMovieId(slug).then((val) => setMoviePage(val));
     getMoviesSimilar(slug).then((val) => setMovieSimilar(val));
     getMovieCredits(slug).then((val) => setCastCredits(val.cast));
