@@ -1,21 +1,22 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { UseEffect, UseState, UseRef } from "react";
+import { useEffect, useState } from "react/cjs/react.production.min";
 import ImgSwiper from "../../../components/swiper/imgSwiper";
 import Link from "next/link";
 import { getPageMovieTotal } from "../../api/movies/movies";
 import { getGenres } from "../../api/genres/genres";
 
 function Index(props) {
+  const arrProps = props.listaTotal;
+
+  const [totalMovie, setTotalMovie] = useState(18);
+  const [totalList, setTotalList] = useState();
+
+  useEffect(() => {
+    setTotalList(arrProps.slice(0, totalMovie ? totalMovie : 18));
+  }, [totalMovie]);
   if (props.listaTotal) {
-    const [totalMovie, setTotalMovie] = UseState(18);
-    const [totalList, setTotalList] = UseState(
-      props.listaTotal.slice(0, totalMovie)
-    );
-
     const getGenres = props.genresTotal.genres.find((x) => x.id == props.id);
-    UseEffect(() => {}, [totalMovie]);
-
     const searchMovie = (e) => {
       setTotalList(
         props.listaTotal.filter((element) =>
@@ -49,7 +50,7 @@ function Index(props) {
           </label>
         </form>
         <div className="2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 mbx:grid-cols-2 grid grid-cols-1 relative gap-1.5 mt-5">
-          {totalList.map((item,index) => (
+          {totalList && totalList.map((item, index) => (
             <Link key={index} href={`/pelicula/${item.id}`}>
               <a>
                 <ImgSwiper img={item.poster_path} hover={false} />
@@ -82,7 +83,25 @@ export default Index;
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { id: "35" } }],
+    paths: [
+      { params: { id: "28" } },
+      { params: { id: "12" } },
+      { params: { id: "14" } },
+      { params: { id: "36" } },
+      { params: { id: "27" } },
+      { params: { id: "10402" } },
+      { params: { id: "878" } },
+      { params: { id: "10770" } },
+      { params: { id: "10752" } },
+      { params: { id: "53" } },
+      { params: { id: "35" } },
+      { params: { id: "80" } },
+      { params: { id: "99" } },
+      { params: { id: "18" } },
+      { params: { id: "10751" } },
+      { params: { id: "9648" } },
+      { params: { id: "37" } },
+    ],
     fallback: true,
   };
 }
@@ -91,7 +110,7 @@ export async function getStaticProps(context) {
   const { params, res } = context;
   const { id } = params;
 
-  const listaTotal = await getPageMovieTotal(id);
+  const listaTotal = await getPageMovieTotal(35);
   const genresTotal = await getGenres("movie");
 
   return { props: { genresTotal, id, listaTotal }, revalidate: 1 };

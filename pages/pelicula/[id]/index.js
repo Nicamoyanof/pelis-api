@@ -1,22 +1,22 @@
 import Link from "next/link";
-import { UseRouter } from "next/router";
-import { UseEffect, UseState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react/cjs/react.production.min";
 import { SwiperMovie } from "../../../components/swiper/SwiperMovies";
 import { getMovieCredits, getMovieId } from "../../api/movies/id";
 import { getMoviesSimilar } from "../../api/movies/movies";
 
-function index() {
-  const router = UseRouter();
+function Index() {
+  const router = useRouter();
   const slug = router.query.id;
 
   
 
-  const [moviePage, setMoviePage] = UseState();
-  const [movieSimilar, setMovieSimilar] = UseState();
-  const [castCredits, setCastCredits] = UseState();
-  const [crewCredits, setCrewCredits] = UseState();
+  const [moviePage, setMoviePage] = useState();
+  const [movieSimilar, setMovieSimilar] = useState();
+  const [castCredits, setCastCredits] = useState();
+  const [crewCredits, setCrewCredits] = useState();
 
-  UseEffect(() => {
+  useEffect(() => {
     getMovieId(slug).then((val) => setMoviePage(val));
     getMoviesSimilar(slug).then((val) => setMovieSimilar(val));
     getMovieCredits(slug).then((val) => setCastCredits(val.cast));
@@ -117,4 +117,4 @@ function index() {
   return <div>404</div>;
 }
 
-export default index;
+export default Index;

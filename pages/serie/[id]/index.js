@@ -1,22 +1,20 @@
-import { UseRouter } from "next/router";
-import { UseState , UseEffect, UseRef } from "react";
-// import {  } from "react
+import { useRouter } from "next/router";
+import { useState , useEffect , useRef } from "react/cjs/react.production.min";
 import { SwiperMovie } from "../../../components/swiper/SwiperMovies";
-import { getMoviesSimilar } from "../../api/movies/movies";
 import { getSerieId } from "../../api/series/id";
 import { getSeriesSimilar } from "../../api/series/series";
 
-function index() {
-  const router = UseRouter();
+function Index() {
+  const router = useRouter();
   const slug = router.query.id;
 
-  const [seriePage, setSeriePage] = UseState();
-  const [seriesSimilar, setSeriesSimilar] = UseState();
-  const [seasonsSerie, setSeasonsSerie] = UseState();
-  const [seasonsSerieFilter, setSeasonsSerieFilter] = UseState();
-  const selectRef = UseRef();
+  const [seriePage, setSeriePage] = useState();
+  const [seriesSimilar, setSeriesSimilar] = useState();
+  const [seasonsSerie, setSeasonsSerie] = useState();
+  const [seasonsSerieFilter, setSeasonsSerieFilter] = useState();
+  const selectRef = useRef();
 
-  UseEffect(() => {
+  useEffect(() => {
     setSeasonsSerieFilter();
     getSerieId(slug).then((val) => setSeriePage(val));
     getSerieId(slug).then((val) => setSeasonsSerie(val.seasons));
@@ -133,4 +131,4 @@ function index() {
   return <div>404</div>;
 }
 
-export default index;
+export default Index;

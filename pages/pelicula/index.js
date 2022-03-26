@@ -1,19 +1,19 @@
-import { UseState, UseEffect } from "react";
+import { useEffect, useState } from "react/cjs/react.production.min";
 import TrailerHome from "../../components/Home/TrailerHome";
 import { SwiperMovie } from "../../components/swiper/SwiperMovies";
 import { getGenres, getTotalList } from "../api/genres/genres";
-import { getMovieTrailer } from "../api/movies/movies";
+import { getMovieTrailer, getMovieTrailerError } from "../api/movies/movies";
 
 export default function Index(props) {
   
 
 
-  const [list, setList] = UseState();
+  const [list, setList] = useState();
 
   const arrListSeries = [];
   
 
-  UseEffect(async () => {
+  useEffect(async () => {
 
 
 
@@ -38,7 +38,7 @@ export default function Index(props) {
 
     return (
       <div>
-        <TrailerHome movie={props.imgTrailer} link={'pelicula'} />
+        <TrailerHome movie={props.imgTrailer?props.imgTrailer:props.imgTrailerError} link={'pelicula'} />
         {list.map((item, index) => {
           return (
             <SwiperMovie key={index} list={item.results} category={props.list.genres[index]} url="pelicula" />
@@ -61,7 +61,7 @@ export async function getStaticProps() {
 
   const list = await getGenres('movie');
   const imgTrailer = await getMovieTrailer();
-  
+  const imgTrailerError = await getMovieTrailerError();
 
-  return { props: { list , imgTrailer} };
+  return { props: { list , imgTrailer , imgTrailerError} };
 }

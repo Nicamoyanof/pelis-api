@@ -1,7 +1,3 @@
-import Head from "next/head";
-import { connect } from "react-redux";
-// import { useEffect, useState } from "react/cjs/react.production.min";
-import { useState, useEffect } from "react/cjs/react.development";
 import TrailerHome from "../components/Home/TrailerHome";
 import { SwiperMovie } from "../components/swiper/SwiperMovies";
 import styles from "../styles/Home.module.css";
@@ -9,6 +5,7 @@ import {
   getMovieGenres,
   getMoviesPopular,
   getMovieTrailer,
+  getMovieTrailerError,
 } from "./api/movies/movies";
 import { getSerieGenres, getSeriesPopular } from "./api/series/series";
 
@@ -18,7 +15,7 @@ function Home(props) {
 
   return (
     <div className={styles.container}>
-      <TrailerHome movie={props.imgTrailer} link={"pelicula"} />
+      <TrailerHome movie={props.imgTrailer?props.imgTrailer:props.imgTrailerError} link={"pelicula"} />
 
       <SwiperMovie
         list={props.moviePop}
@@ -72,6 +69,7 @@ function Home(props) {
 
 export async function getStaticProps() {
   const imgTrailer = await getMovieTrailer();
+  const imgTrailerError = await getMovieTrailerError();
   const moviePop  = await getMoviesPopular()
   const  seriePop= await getSeriesPopular()
   const  movieComedy= await getMovieGenres(35)
@@ -80,11 +78,11 @@ export async function getStaticProps() {
   const serieDoc = await getSerieGenres(99)
   const  movieMystery = await getMovieGenres(9648)
   const serieMystery = await getSerieGenres(9648)
+  
 
 
 
-
-  return { props: { imgTrailer , moviePop , movieComedy , movieDoc, movieMystery , seriePop , serieComedy , serieDoc , serieMystery }  };
+  return { props: { imgTrailer , imgTrailerError , moviePop , movieComedy , movieDoc, movieMystery , seriePop , serieComedy , serieDoc , serieMystery }  };
 }
 
 export default Home;

@@ -1,14 +1,10 @@
-// import { useEffect, useState } from "react/cjs/react.production.min";
-import { useState, useEffect } from "react/cjs/react.development";
+import { useEffect, useState } from "react/cjs/react.production.min";
 import TrailerHome from "../../components/Home/TrailerHome";
 import { SwiperMovie } from "../../components/swiper/SwiperMovies";
-import styles from "../../styles/Home.module.css";
 import { getGenres, getTotalList } from "../api/genres/genres";
-import { getMovieGenres, getMoviesPopular, getMovieTrailer } from "../api/movies/movies";
-import { getSerieGenres, getSeriesPopular } from "../api/series/series";
+import { getMovieTrailer, getMovieTrailerError } from "../api/movies/movies";
 
 export default function Index(props) {
-  const [serieTotal, setSerieTotal] = useState();
   const [list, setList] = useState();
 
   const arrListSeries = [];
@@ -39,7 +35,7 @@ export default function Index(props) {
 
     return (
       <div>
-        <TrailerHome movie={props.imgTrailer} link={'serie'} />
+        <TrailerHome movie={props.imgTrailer?props.imgTrailer:props.imgTrailerError} link={'serie'} />
         {list.map((item, index) => {
           return (
             <SwiperMovie key={index} list={item.results} category={props.list.genres[index]} url="serie" />
@@ -63,6 +59,7 @@ export async function getStaticProps() {
   // function directly in `getStaticProps`
   const list = await getGenres('tv');
   const imgTrailer = await getMovieTrailer();
+  const imgTrailerError = await getMovieTrailerError();
 
-  return { props: {list , imgTrailer} };
+  return { props: {list , imgTrailer , imgTrailerError} };
 }

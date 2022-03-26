@@ -1,17 +1,17 @@
-import { UseRouter } from "next/router";
-import { UseEffect, UseState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react/cjs/react.production.min";
 import { SwiperMovie } from "../../components/swiper/SwiperMovies";
 import { getActorId, getActorMovies, getActorSerie } from "../api/actores/id";
 
-function index() {
-  const router = UseRouter();
+function Index() {
+  const router = useRouter();
   const slug = router.query.id;
 
-  const [actorId, setActorId] = UseState();
-  const [movieActor, setMovieActor] = UseState();
-  const [serieActor, setSerieActor] = UseState();
+  const [actorId, setActorId] = useState();
+  const [movieActor, setMovieActor] = useState();
+  const [serieActor, setSerieActor] = useState();
 
-  UseEffect(() => {
+  useEffect(() => {
     getActorId(slug).then((val) => setActorId(val));
     getActorMovies(slug).then((val) => setMovieActor(val));
     getActorSerie(slug).then((val) => setSerieActor(val));
@@ -68,4 +68,4 @@ function index() {
   return <div>404</div>;
 }
 
-export default index;
+export default Index;
