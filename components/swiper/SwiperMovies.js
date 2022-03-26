@@ -52,7 +52,7 @@ const breakpoint = {
 
 
 export function SwiperMovie(props) {
-  console.log(props )
+  
   const list = props.list;
 
   if (list != undefined) {
@@ -61,7 +61,7 @@ export function SwiperMovie(props) {
         <Link onClick={()=>props.getId(props.category.id)} href={`${props.url}/categoria/${props.category.id}`}>
           <a>
             <h3 className="lg:text-2xl text-red-100 text-lg font-medium mb-8 uppercase">
-              {props.category.name}
+              {props.category}
             </h3>
           </a>
         </Link>

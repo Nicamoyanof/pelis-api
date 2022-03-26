@@ -1,9 +1,9 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react/cjs/react.development";
 import { SwiperMovie } from "../../../components/swiper/SwiperMovies";
-import { getMovieId } from "../../api/movies/id";
+import { getMovieCredits, getMovieId } from "../../api/movies/id";
 import { getMoviesSimilar } from "../../api/movies/movies";
-import { getSeriesPopular } from "../../api/series/series";
 
 function index() {
   const router = useRouter();
@@ -13,13 +13,18 @@ function index() {
 
   const [moviePage, setMoviePage] = useState();
   const [movieSimilar, setMovieSimilar] = useState();
+  const [castCredits, setCastCredits] = useState();
+  const [crewCredits, setCrewCredits] = useState();
 
   useEffect(() => {
     getMovieId(slug).then((val) => setMoviePage(val));
     getMoviesSimilar(slug).then((val) => setMovieSimilar(val));
+    getMovieCredits(slug).then((val) => setCastCredits(val.cast));
+    getMovieCredits(slug).then((val) => setCrewCredits(val.crew));
+    
   }, [slug]);
 
-  if (moviePage != undefined) {
+  if (moviePage != undefined && castCredits!=undefined && crewCredits!= undefined) {
 
     
 
@@ -31,6 +36,7 @@ function index() {
         ? `${hoursTotal}h ${minutesFinal} min`
         : `${hoursTotal}h`;
     };
+
 
     return (
       <div>
@@ -77,14 +83,28 @@ function index() {
                 </p>
                 <p className="p-3 text-stone-500">
                   Actores:
-                  {/* {
-                    arrActor.map((actor, index) => {
+                  {
+                    castCredits.map((actor, index) => {
                       return (
-                        <Link  href={`../../actores/${creditsCast[index].id}`} key={index}><a className='py-3 px-1 text-white font-semibold'>{creditsCast[index].name}</a></Link>
+                        <Link  href={`../../persona/${actor.id}`} key={index} className='text-white no-underline'><a className='py-3 px-1 text-white font-semibold'>{actor.name}</a></Link>
                       )
                     })
-                  } */}
+                  }
                 </p>
+                <p className="p-3 text-stone-500">
+                  Direccion:
+                  {
+                    crewCredits.map((direct, index) => {
+                      if(direct.known_for_department.includes('Directing')){
+                         return (
+                        <Link  href={`../../persona/${direct.id}`} key={index} className='text-white no-underline'><a className='py-3 px-1 text-white font-semibold'>{direct.name}</a></Link>
+                      )
+                      }
+                      return
+                    })
+                  }
+                </p>
+                
               </span>
             </div>
           </div>

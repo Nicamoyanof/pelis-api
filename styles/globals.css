@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 html,
 body {
@@ -31,6 +31,6 @@ footer{
   text-align: center;
 }
 .tituloMovieTrailer{
-  /* font-family: 'Bebas Neue', cursive; */
+  font-family: 'Bebas Neue', cursive;
   letter-spacing: 3px;
 }

@@ -1,35 +1,48 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import { useEffect, useState } from "react/cjs/react.development";
+import { useEffect, useState , useRef } from "react/cjs/react.development";
 import ImgSwiper from "../../../components/swiper/imgSwiper";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { getGenres, getTotalList } from "../../api/genres/genres";
+import { getGenres } from "../../api/genres/genres";
 import { getPageSerieTotal } from "../../api/series/series";
 
 function Index(props) {
   if (props.listaTotal) {
-    const totalList = props.listaTotal;
+    const [totalMovie, setTotalMovie] = useState(18)
+    const [totalList , setTotalList] = useState(props.listaTotal.slice(0,totalMovie));
 
-    // const arrFinal = [];
+    const moviesRef = useRef()
 
+    // const lastMovie = moviesRef.current;
+    // let coords = lastMovie.getBoundingClientRect();
+
+    
     const getGenres = props.genresTotal.genres.find((x) => x.id == props.id);
     useEffect(() => {
-      // totalList.forEach((item) => {
-      //   item.forEach((element) => {
-      //     arrFinal.push(element);
-      //   });
-      // });
-    }, []);
+
+
+    }, [totalMovie ]);
+
+
+    const searchMovie = (e)=>{
+      setTotalList(props.listaTotal.filter((element)=>element.name.toLowerCase().includes(e.target.value.toLowerCase() )))
+    }
+
+    const addMoviesView = ()=>{
+      setTotalMovie( totalMovie + 18)
+      setTotalList(props.listaTotal.slice(0,totalMovie))
+    }
+
+
       return (
-        <main className="xl:px-14 lg:px-7 sm:px-3 pt-20 relative px-2">
+        <main className="xl:px-14 lg:px-7 sm:px-3 pt-20 relative px-2 min-h-screen ">
           <form className="md:flex md:mt-8 justify-around items-center w-full p-5 pt-0">
             <h1 className="text-center text-2xl font-semibold	mb-4 uppercase">
               {getGenres.name}
             </h1>
             <label className="relative ">
               <input
+              onChange={(e)=>searchMovie(e)}
                 className="2xl:text-xl focus:outline-0  pl-3 pr-10 py-3 w-full  font-semibold tracking-wider bg-neutral-900	text-white border-solid border-b-4 rounded-md border-b-red-700"
                 type="search"
                 placeholder="Buscar Serie"
@@ -40,7 +53,7 @@ function Index(props) {
               />
             </label>
           </form>
-          <div className="2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 mbx:grid-cols-2 grid grid-cols-1 relative gap-1.5 mt-5">
+          <div  className="2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 mbx:grid-cols-2 grid grid-cols-1 relative gap-1.5 mt-5">
             {totalList.map((item) => (
               <Link href={`/serie/${item.id}`}>
               <a>
@@ -50,10 +63,10 @@ function Index(props) {
             ))}
           </div>
 
-          <button className="bg-white" onClick={() => func()}>
-            {" "}
+          <button className="bg-white" onClick={addMoviesView}>
             MAS SERIES
           </button>
+          {/* <div ref={moviesRef} ></div> */}
           <style jsx>{`
             h1 {
               color: white;

@@ -10,8 +10,6 @@ const idSerieRedux = (state = INITIAL_STATE, action) => {
     case actionTypes.GET_ID:
       state.id = action.payload.id;
 
-      console.log(state.id)
-
       return {
         ...state,
         id: action.payload.id

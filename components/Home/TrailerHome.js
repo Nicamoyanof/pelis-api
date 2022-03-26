@@ -1,23 +1,32 @@
 import { faCircleInfo, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import { useEffect } from "react/cjs/react.development";
 
 const imgUrlTrailer =
   "https://occ-0-4799-185.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABaTciS03BhENGzmipy3mpl3HXzLNGB0f5TID9CfhW_xBXCXXxRYEuZdOqvaJK7SZEPNlQLwFvatJ7OIi60ZU4_gnqFD5.webp?r=e96";
 const classBtn =
   "h-10 w-10 p-2 m-5 top-0 bottom-0  items-center flex justify-center rounded-full bg-slate-100  hover:bg-cyan-600 md:h-14 md:w-14 md:m-5";
 
-const BtnResponsive = () => {
+const BtnResponsive = (props) => {
   return (
     <div className="absolute w-max flex items-center">
-        <h2 className="tituloMovieTrailer md:text-7xl m-2 text-white text-center text-3xl font-semibold">PRIMICIA MORTAL</h2>
+      <Link href={`../pelicula/${props.url}`}><a>
+        <h2 className="tituloMovieTrailer md:text-7xl m-2 text-white text-center text-3xl font-semibold uppercase">{props.title?props.title:'Error'}</h2></a></Link>
         <button className={classBtn}>
           <FontAwesomeIcon icon={faPlay} className="w-4" />
         </button>
     </div>
   );
 };
-function TrailerHome() {
-  return (
+function TrailerHome( props ) {
+  
+  if(props){
+    
+    useEffect(()=>{
+    },[])
+
+    return (
     <div className="h-full relative">
       <div
         id="imgTrailer"
@@ -30,7 +39,10 @@ function TrailerHome() {
                     src="https://occ-0-4799-185.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABeeG_UFNIumdscqC3GMV9p7JIwdEv7R594l99naX9T-qxUHcrQN7PlJOizh2m0xwxvfdPDa6BTmyOeoJ-YMEdixaIen_S7XXCaXhNiiMd_D6O76EA_PBfigNp98yVdx7VRD66MrmEq3616gj76C538YROOPCWfWONMMwDr3PgXvooQ.webp?r=c95"
                     alt="Picture of the author"
                 /> */}
-        <BtnResponsive />
+        <BtnResponsive title={props.movie.title} link={'pelicula'} url={props.movie.id} />
+
+        
+
       </div>
       <style jsx>{`
         
@@ -46,7 +58,7 @@ function TrailerHome() {
               rgba(0, 0, 0, 0.3) 80%,
               rgba(0, 0, 0, 1) 100%
             ),
-            url(${imgUrlTrailer});
+            url(https://image.tmdb.org/t/p/original/${props.movie.backdrop_path?props.movie.backdrop_path:props.movie.poster_path});
           background-size: cover;
         }
         h2{
@@ -55,6 +67,10 @@ function TrailerHome() {
       `}</style>
     </div>
   );
+  }
+  
+
+  
 }
 
 export default TrailerHome;

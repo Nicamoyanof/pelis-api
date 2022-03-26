@@ -1,17 +1,18 @@
 import Head from "next/head";
 import { connect } from "react-redux";
 // import { useEffect, useState } from "react/cjs/react.production.min";
-import { useState , useEffect} from "react/cjs/react.development";
+import { useState, useEffect } from "react/cjs/react.development";
 import TrailerHome from "../components/Home/TrailerHome";
 import { SwiperMovie } from "../components/swiper/SwiperMovies";
 import styles from "../styles/Home.module.css";
-import { getMovieGenres, getMoviesPopular } from "./api/movies/movies";
+import {
+  getMovieGenres,
+  getMoviesPopular,
+  getMovieTrailer,
+} from "./api/movies/movies";
 import { getSerieGenres, getSeriesPopular } from "./api/series/series";
 
- function Home() {
-  
-  
-
+function Home(props) {
   const [moviePop, setMoviePop] = useState();
   const [movieComedy, setMovieComedy] = useState();
   const [movieDoc, setMovieDoc] = useState();
@@ -21,22 +22,17 @@ import { getSerieGenres, getSeriesPopular } from "./api/series/series";
   const [serieDoc, setSerieDoc] = useState();
   const [serieMystery, setSerieMystery] = useState();
 
+  useEffect(() => {
+    getMoviesPopular().then((val) => setMoviePop(val));
+    getSeriesPopular().then((val) => setSeriePop(val));
+    getMovieGenres(35).then((val) => setMovieComedy(val));
+    getSerieGenres(35).then((val) => setSerieComedy(val));
+    getMovieGenres(99).then((val) => setMovieDoc(val));
+    getSerieGenres(99).then((val) => setSerieDoc(val));
+    getMovieGenres(9648).then((val) => setMovieMystery(val));
+    getSerieGenres(9648).then((val) => setSerieMystery(val));
 
-  
-  useEffect(()=>{
-    getMoviesPopular().then((val) =>setMoviePop(val))
-    getSeriesPopular().then((val) => setSeriePop(val))
-    getMovieGenres(35).then((val) => setMovieComedy(val))
-    getSerieGenres(35).then((val) => setSerieComedy(val))
-    getMovieGenres(99).then((val) => setMovieDoc(val))
-    getSerieGenres(99).then((val) => setSerieDoc(val))
-    getMovieGenres(9648).then((val) => setMovieMystery(val))
-    getSerieGenres(9648).then((val) => setSerieMystery(val))
-    
-    
-    
-  },[])
-
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -47,18 +43,48 @@ import { getSerieGenres, getSeriesPopular } from "./api/series/series";
         <link rel="stylesheet" href="../styles/Home.module.css" />
       </Head>
 
-      <TrailerHome />
+      <TrailerHome movie={props} link={"pelicula"} />
 
-      // <SwiperMovie list={moviePop} category={{name:'PELICULAS POPULARES', id: ''}} url='pelicula' />
-      // <SwiperMovie list={seriePop} category={{name:'SERIES POPULARES', id: ''}} url='serie' />
-      // <SwiperMovie list={movieComedy} category={{name:'PELICULAS DE COMEDIA', id: '35'}} url='pelicula' />
-      // <SwiperMovie list={serieComedy} category={{name:'SERIES DE COMEDIA', id: '35'}} url='serie' />
-      // <SwiperMovie list={movieDoc} category={{name:'PELICULAS DE DOCUMENTALES', id: '99'}} url='pelicula' />
-      // <SwiperMovie list={serieDoc} category={{name:'SERIES DE DOCUMENTALES', id: '99'}} url='serie' />
-      // <SwiperMovie list={movieMystery} category={{name:'PELICULAS DE MISTERIO', id: '9648'}} url='pelicula' />
-      // <SwiperMovie list={serieMystery} category={{name:'SERIES DE MISTERIO', id: '9648'}} url='serie' />
-      
-
+      <SwiperMovie
+        list={moviePop}
+        category={{ name: "PELICULAS POPULARES", id: "" }}
+        url="pelicula"
+      />
+      <SwiperMovie
+        list={seriePop}
+        category={{ name: "SERIES POPULARES", id: "" }}
+        url="serie"
+      />
+      <SwiperMovie
+        list={movieComedy}
+        category={{ name: "PELICULAS DE COMEDIA", id: "35" }}
+        url="pelicula"
+      />
+      <SwiperMovie
+        list={serieComedy}
+        category={{ name: "SERIES DE COMEDIA", id: "35" }}
+        url="serie"
+      />
+      <SwiperMovie
+        list={movieDoc}
+        category={{ name: "PELICULAS DE DOCUMENTALES", id: "99" }}
+        url="pelicula"
+      />
+      <SwiperMovie
+        list={serieDoc}
+        category={{ name: "SERIES DE DOCUMENTALES", id: "99" }}
+        url="serie"
+      />
+      <SwiperMovie
+        list={movieMystery}
+        category={{ name: "PELICULAS DE MISTERIO", id: "9648" }}
+        url="pelicula"
+      />
+      <SwiperMovie
+        list={serieMystery}
+        category={{ name: "SERIES DE MISTERIO", id: "9648" }}
+        url="serie"
+      />
 
       <style jsx>{`
         h1 {
@@ -69,6 +95,10 @@ import { getSerieGenres, getSeriesPopular } from "./api/series/series";
   );
 }
 
+export async function getStaticProps() {
+  const imgTrailer = await getMovieTrailer();
 
+  return { props: imgTrailer };
+}
 
-export default Home
+export default Home;
