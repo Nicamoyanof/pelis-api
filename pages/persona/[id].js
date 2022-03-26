@@ -45,7 +45,7 @@ function index() {
             <div className="">
               <div className="sm:justify-start flex items-center justify-center">
                 
-                <p className="2xl:text-lg p-3 text-stone-500">{yearTotal} años</p>
+                <p className="2xl:text-lg p-3 text-stone-500">{actorId.deathday?`⚰️ ${actorId.deathday.slice(0,4)}`:`${yearTotal} años`}  </p>
                 <p className="2xl:text-lg p-3 text-stone-500">{txtBorn}</p>
               </div>
 

@@ -22,27 +22,33 @@ function index() {
     getSeriesSimilar(slug).then((val) => setSeriesSimilar(val));
     // selectRef.current.children[0].selected = 'inicio'
   }, [slug]);
-  
+
   if (seriePage != undefined && seasonsSerie != undefined) {
     const selectSeasons = (value) => {
       const output = seasonsSerie.filter((tv) => tv.season_number == value);
       setSeasonsSerieFilter(output[0]);
     };
-    
+
+    const imgPoster = () => {
+      if (seasonsSerieFilter != undefined) {
+        return `https://image.tmdb.org/t/p/original/${
+          seasonsSerieFilter.poster_path
+            ? seasonsSerieFilter.poster_path
+            : seriePage.poster_path
+        }`;
+      } else if (seriePage.poster_path != undefined) {
+        return `https://image.tmdb.org/t/p/original/${seriePage.poster_path}`;
+      } else {
+        return "img/Fondo_Negro.jpg";
+      }
+    };
+
     return (
       <div>
         <div className="sm:flex">
           <img
-            src={
-              seasonsSerieFilter != undefined
-                ? `https://image.tmdb.org/t/p/original/${
-                    seasonsSerieFilter.poster_path
-                      ? seasonsSerieFilter.poster_path
-                      : seriePage.poster_path
-                  }`
-                : `https://image.tmdb.org/t/p/original/${seriePage.poster_path}`
-            }
-            className="sm:max-h-screen md:h-screen mt-10"
+            src={imgPoster()}
+            className="sm:max-h-screen md:h-screen mt-10 w-6/12"
           />
           <div className="md:mt-16 sm:self-center sm:p-5">
             <p className="2xl:text-2xl lg:text-xl md:text-base sm:text-xs p-3 text-stone-500">
@@ -76,7 +82,7 @@ function index() {
                 >
                   <option value="inicio">Inicio</option>
                   {seasonsSerie.map((season, index) => (
-                    <option value={season.season_number}>{season.name}</option>
+                    <option key={index} value={season.season_number}>{season.name}</option>
                   ))}
                 </select>
                 <h5 className="2xl:text-4xl text-white text-3xl text-semibold ml-5">

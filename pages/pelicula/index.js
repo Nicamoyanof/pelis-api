@@ -44,7 +44,7 @@ export default function Index(props) {
         <TrailerHome movie={props.imgTrailer} link={'pelicula'} />
         {list.map((item, index) => {
           return (
-            <SwiperMovie list={item.results} category={props.list.genres[index]} url="pelicula" />
+            <SwiperMovie kay={index} list={item.results} category={props.list.genres[index]} url="pelicula" />
           );
         })}
 

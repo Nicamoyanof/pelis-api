@@ -14,9 +14,8 @@ function NavBar() {
 
   const pages = [
     { title: "Inicio", to: "/" },
-    { title: "Series", to: "../serie" },
-    { title: "Peliculas", to: "../pelicula" },
-    { title: "Categorias", to: "../categoria" },
+    { title: "Series", to: "/serie" },
+    { title: "Peliculas", to: "/pelicula" }
   ];
 
   // const menuDown = '150px'
@@ -44,7 +43,7 @@ function NavBar() {
         className={`listNavBarMobile md:p-1 duration-1000 z-40 bg-black block fixed  left-0 flex flex-col justify-start items-center text-white`}
       >
         {pages.map((list) => (
-          <li key={list.title} className="md:text-2xl p-2 w-full">
+          <li key={list.title} className="md:text-2xl p-2 w-full"  onClick={toggleClose}>
             <Link href={`${list.to}`}>
               <a> {list.title} </a>
             </Link>
@@ -74,8 +73,8 @@ function NavBar() {
         </Link>
         <ul className="hidden ">
           {pages.map((list) => (
-            <li key={list.title} className="p-2">
-              <Link href={list.to}>
+            <li key={list.title} className="p-2" onClick={toggleClose}>
+              <Link href={list.to}  onClick={toggleClose} >
                 <a> {list.title}</a>
               </Link>
             </li>

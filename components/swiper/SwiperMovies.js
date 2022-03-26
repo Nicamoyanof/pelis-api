@@ -53,15 +53,18 @@ const breakpoint = {
 
 export function SwiperMovie(props) {
   
-  const list = props.list;
+  
+  if (props != undefined && props.list!= undefined) {
 
-  if (list != undefined) {
+    const list = props.list;
+
+    
     return (
       <div className="pl-3 my-10">
         <Link onClick={()=>props.getId(props.category.id)} href={`${props.url}/categoria/${props.category.id}`}>
           <a>
-            <h3 className="lg:text-2xl text-red-100 text-lg font-medium mb-8 uppercase">
-              {props.category}
+            <h3 className="lg:text-2xl text-red-100 text-lg font-medium mb-8 uppercase hover:text-red-400">
+              {props.category.name}
             </h3>
           </a>
         </Link>
@@ -76,7 +79,7 @@ export function SwiperMovie(props) {
             <SwiperSlide key={index} className="h-full w-full swiperContainImg">
               <Link href={`/${props.url}/${item.id}`}>
                 <a>
-                  <ImgSwiper img={item.poster_path} hover={true} />
+                  <ImgSwiper img={item.poster_path} hover={true} title={item.title?item.title:item.name} />
                 </a>
               </Link>
             </SwiperSlide>

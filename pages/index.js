@@ -13,26 +13,8 @@ import {
 import { getSerieGenres, getSeriesPopular } from "./api/series/series";
 
 function Home(props) {
-  const [moviePop, setMoviePop] = useState();
-  const [movieComedy, setMovieComedy] = useState();
-  const [movieDoc, setMovieDoc] = useState();
-  const [movieMystery, setMovieMystery] = useState();
-  const [seriePop, setSeriePop] = useState();
-  const [serieComedy, setSerieComedy] = useState();
-  const [serieDoc, setSerieDoc] = useState();
-  const [serieMystery, setSerieMystery] = useState();
 
-  useEffect(() => {
-    getMoviesPopular().then((val) => setMoviePop(val));
-    getSeriesPopular().then((val) => setSeriePop(val));
-    getMovieGenres(35).then((val) => setMovieComedy(val));
-    getSerieGenres(35).then((val) => setSerieComedy(val));
-    getMovieGenres(99).then((val) => setMovieDoc(val));
-    getSerieGenres(99).then((val) => setSerieDoc(val));
-    getMovieGenres(9648).then((val) => setMovieMystery(val));
-    getSerieGenres(9648).then((val) => setSerieMystery(val));
-
-  }, []);
+  console.log(props)
 
   return (
     <div className={styles.container}>
@@ -43,45 +25,45 @@ function Home(props) {
         <link rel="stylesheet" href="../styles/Home.module.css" />
       </Head>
 
-      <TrailerHome movie={props} link={"pelicula"} />
+      <TrailerHome movie={props.imgTrailer} link={"pelicula"} />
 
       <SwiperMovie
-        list={moviePop}
+        list={props.moviePop}
         category={{ name: "PELICULAS POPULARES", id: "" }}
         url="pelicula"
       />
       <SwiperMovie
-        list={seriePop}
+        list={props.seriePop}
         category={{ name: "SERIES POPULARES", id: "" }}
         url="serie"
       />
       <SwiperMovie
-        list={movieComedy}
+        list={props.movieComedy}
         category={{ name: "PELICULAS DE COMEDIA", id: "35" }}
         url="pelicula"
       />
       <SwiperMovie
-        list={serieComedy}
+        list={props.serieComedy}
         category={{ name: "SERIES DE COMEDIA", id: "35" }}
         url="serie"
       />
       <SwiperMovie
-        list={movieDoc}
+        list={props.movieDoc}
         category={{ name: "PELICULAS DE DOCUMENTALES", id: "99" }}
         url="pelicula"
       />
       <SwiperMovie
-        list={serieDoc}
+        list={props.serieDoc}
         category={{ name: "SERIES DE DOCUMENTALES", id: "99" }}
         url="serie"
       />
       <SwiperMovie
-        list={movieMystery}
+        list={props.movieMystery}
         category={{ name: "PELICULAS DE MISTERIO", id: "9648" }}
         url="pelicula"
       />
       <SwiperMovie
-        list={serieMystery}
+        list={props.serieMystery}
         category={{ name: "SERIES DE MISTERIO", id: "9648" }}
         url="serie"
       />
@@ -97,8 +79,19 @@ function Home(props) {
 
 export async function getStaticProps() {
   const imgTrailer = await getMovieTrailer();
+  const moviePop  = await getMoviesPopular()
+  const  seriePop= await getSeriesPopular()
+  const  movieComedy= await getMovieGenres(35)
+  const serieComedy = await getSerieGenres(35)
+  const  movieDoc= await getMovieGenres(99)
+  const serieDoc = await getSerieGenres(99)
+  const  movieMystery = await getMovieGenres(9648)
+  const serieMystery = await getSerieGenres(9648)
 
-  return { props: imgTrailer };
+
+
+
+  return { props: { imgTrailer , moviePop , movieComedy , movieDoc, movieMystery , seriePop , serieComedy , serieDoc , serieMystery }  };
 }
 
 export default Home;

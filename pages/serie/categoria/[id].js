@@ -54,8 +54,8 @@ function Index(props) {
             </label>
           </form>
           <div  className="2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 mbx:grid-cols-2 grid grid-cols-1 relative gap-1.5 mt-5">
-            {totalList.map((item) => (
-              <Link href={`/serie/${item.id}`}>
+            {totalList.map((item,index) => (
+              <Link href={`/serie/${item.id}`} key={index}>
               <a>
                 <ImgSwiper img={item.poster_path} hover={false} />
               </a>
