@@ -36,6 +36,8 @@ export default function Index(props) {
   if (list) {
     
 
+  
+
     return (
       <div>
         <TrailerHome movie={props.imgTrailer?props.imgTrailer:props.imgTrailerError} link={'pelicula'} />
@@ -59,8 +61,9 @@ export default function Index(props) {
 // This function runs only on the server side
 export async function getStaticProps() {
 
+  const random = Math.round(Math.random() * (5) + 1)
   const list = await getGenres('movie');
-  const imgTrailer = await getMovieTrailer();
+  const imgTrailer = await getMovieTrailer(random);
   const imgTrailerError = await getMovieTrailerError();
 
   return { props: { list , imgTrailer , imgTrailerError} };

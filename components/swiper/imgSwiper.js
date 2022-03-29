@@ -3,7 +3,7 @@ import React from "react";
 function ImgSwiper(props) {
   const imgBackground = props.img
     ? `https://image.tmdb.org/t/p/original/${props.img}`
-    : "img/Fondo_Negro.jpg";
+    : "../../img/Fondo_Negro.jpg";
 
   if (props.hover) {
     return (

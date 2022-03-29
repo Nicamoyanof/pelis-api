@@ -1,8 +1,9 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState , useEffect , useRef } from "react/cjs/react.production.min";
+import { useState, useEffect, useRef } from "react/cjs/react.production.min";
 import { SwiperMovie } from "../../../components/swiper/SwiperMovies";
 import { getSerieId } from "../../api/series/id";
-import { getSeriesSimilar } from "../../api/series/series";
+import { getSerieCredits, getSeriesSimilar } from "../../api/series/series";
 
 function Index() {
   const router = useRouter();
@@ -12,17 +13,22 @@ function Index() {
   const [seriesSimilar, setSeriesSimilar] = useState();
   const [seasonsSerie, setSeasonsSerie] = useState();
   const [seasonsSerieFilter, setSeasonsSerieFilter] = useState();
+  const [castCredits, setCastCredits] = useState();
+  const [crewCredits, setCrewCredits] = useState();
   const selectRef = useRef();
 
   useEffect(() => {
     setSeasonsSerieFilter();
     getSerieId(slug).then((val) => setSeriePage(val));
     getSerieId(slug).then((val) => setSeasonsSerie(val.seasons));
+    getSerieCredits(slug).then((val) => setCastCredits(val.cast));
+    getSerieCredits(slug).then((val) => setCrewCredits(val.crew));
+    // console.log(getSerieCredits(slug).then((val) => setCastCredits(val)))
     getSeriesSimilar(slug).then((val) => setSeriesSimilar(val));
     // selectRef.current.children[0].selected = 'inicio'
   }, [slug]);
 
-  if (seriePage != undefined && seasonsSerie != undefined) {
+  if (seriePage != undefined && seasonsSerie != undefined && castCredits!=undefined && crewCredits!= undefined) {
     const selectSeasons = (value) => {
       const output = seasonsSerie.filter((tv) => tv.season_number == value);
       setSeasonsSerieFilter(output[0]);
@@ -38,7 +44,7 @@ function Index() {
       } else if (seriePage.poster_path != undefined) {
         return `https://image.tmdb.org/t/p/original/${seriePage.poster_path}`;
       } else {
-        return "img/Fondo_Negro.jpg";
+        return "../../img/Fondo_Negro.jpg";
       }
     };
 
@@ -47,7 +53,7 @@ function Index() {
         <div className="sm:flex">
           <img
             src={imgPoster()}
-            className="sm:max-h-screen md:h-screen mt-10 w-6/12"
+            className="sm:max-h-screen md:h-screen mt-10 sm:w-6/12 w-screen"
           />
           <div className="md:mt-16 sm:self-center sm:p-5">
             <p className="2xl:text-2xl lg:text-xl md:text-base sm:text-xs p-3 text-stone-500">
@@ -81,20 +87,40 @@ function Index() {
                 >
                   <option value="inicio">Inicio</option>
                   {seasonsSerie.map((season, index) => (
-                    <option key={index} value={season.season_number}>{season.name}</option>
+                    <option key={index} value={season.season_number}>
+                      {season.name}
+                    </option>
                   ))}
                 </select>
                 <h5 className="2xl:text-4xl text-white text-3xl text-semibold ml-5">
                   {seasonsSerieFilter
                     ? `${seasonsSerieFilter.episode_count} Episodios`
-                    : ""}{" "}
+                    : ""}
                 </h5>
               </div>
               <p className="2xl:text-2xl lg:text-lg md:text-sm sm:text-xs sm:tracking-wider p-3 text-stone-500">
                 {seriePage.overview}
               </p>
               <span>
-                {/* {getDirecting()} */}
+                <p className="p-3 text-stone-500">
+                  Direccion:
+                  {crewCredits.map((direct, index) => {
+                    if (direct.known_for_department.includes("Directing")) {
+                      return (
+                        <Link
+                          href={`../../persona/${direct.id}`}
+                          key={index}
+                          className="text-white no-underline"
+                        >
+                          <a className="py-3 px-1 text-white font-semibold">
+                            {direct.name}
+                          </a>
+                        </Link>
+                      );
+                    }
+                    return;
+                  })}
+                </p>
                 <p className="p-3 text-stone-500">
                   Genero:
                   {/* {
@@ -107,13 +133,19 @@ function Index() {
                 </p>
                 <p className="p-3 text-stone-500">
                   Actores:
-                  {/* {
-                    arrActor.map((actor, index) => {
-                      return (
-                        <Link  href={`../../actores/${creditsCast[index].id}`} key={index}><a className='py-3 px-1 text-white font-semibold'>{creditsCast[index].name}</a></Link>
-                      )
-                    })
-                  } */}
+                  {castCredits.map((actor, index) => {
+                    return (
+                      <Link
+                        href={`../../persona/${actor.id}`}
+                        key={index}
+                        className="text-white no-underline"
+                      >
+                        <a className="py-3 px-1 text-white font-semibold">
+                          {actor.name}
+                        </a>
+                      </Link>
+                    );
+                  })}
                 </p>
               </span>
             </div>

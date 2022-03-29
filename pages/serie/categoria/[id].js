@@ -63,7 +63,7 @@ function Index(props) {
           ))}
         </div>
 
-        <button className="bg-white" onClick={addMoviesView}>
+        <button className="2xl:text-xl focus:outline-0  pl-3 pr-10 py-3 w-full  font-semibold tracking-wider bg-neutral-900	text-white border-solid border-b-4 rounded-md border-b-red-700" onClick={addMoviesView}>
           MAS SERIES
         </button>
         {/* <div ref={moviesRef} ></div> */}

@@ -57,8 +57,9 @@ export default function Index(props) {
 export async function getStaticProps() {
   // Instead of fetching your `/api` route you can call the same
   // function directly in `getStaticProps`
+  const random = Math.round(Math.random() * (5) + 1)
   const list = await getGenres('tv');
-  const imgTrailer = await getMovieTrailer();
+  const imgTrailer = await getMovieTrailer(random);
   const imgTrailerError = await getMovieTrailerError();
 
   return { props: {list , imgTrailer , imgTrailerError} };

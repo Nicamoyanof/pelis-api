@@ -11,20 +11,18 @@ import { getSerieGenres, getSeriesPopular } from "./api/series/series";
 
 function Home(props) {
 
-  console.log(props)
-
   return (
     <div className={styles.container}>
       <TrailerHome movie={props.imgTrailer?props.imgTrailer:props.imgTrailerError} link={"pelicula"} />
 
       <SwiperMovie
         list={props.moviePop}
-        category={{ name: "PELICULAS POPULARES", id: "" }}
+        category={{ name: "PELICULAS POPULARES", id: "pop" }}
         url="pelicula"
       />
       <SwiperMovie
         list={props.seriePop}
-        category={{ name: "SERIES POPULARES", id: "" }}
+        category={{ name: "SERIES POPULARES", id: "pop" }}
         url="serie"
       />
       <SwiperMovie
@@ -68,7 +66,9 @@ function Home(props) {
 }
 
 export async function getStaticProps() {
-  const imgTrailer = await getMovieTrailer();
+
+  const random = Math.round(Math.random() * (5) + 1)-1
+  const imgTrailer = await getMovieTrailer(random);
   const imgTrailerError = await getMovieTrailerError();
   const moviePop  = await getMoviesPopular()
   const  seriePop= await getSeriesPopular()

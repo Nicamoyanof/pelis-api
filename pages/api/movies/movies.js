@@ -44,12 +44,11 @@ export const getMovieGenres = async (genre) => {
 };
 
 
-export const getMovieTrailer = async () => {
+export const getMovieTrailer = async (num) => {
 
-  const randomNumPage = (Math.floor(Math.random() * (5 - 1 + 1) + 1))
 
   const rawResponse = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=${randomNumPage}&language=es-MX`,
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=1&language=es`,
     {
       method: "GET",
       headers: {
@@ -60,9 +59,9 @@ export const getMovieTrailer = async () => {
   )
   const response = await rawResponse.json();
 
-  const randomNum = (Math.floor(Math.random() * (20 - 1 + 1) + 1))
+  const randomNum = response.results[randomize(response.results)]
 
-  return response.results[randomNum]!=undefined?response.results[randomNum]:null
+  return randomNum!=undefined?randomNum:null
 };
 
 export const getMovieTrailerError = async () => {
@@ -250,3 +249,160 @@ export const getPageMovieTotal = async (genre) => {
   return arrFinal
 
 };
+
+
+
+export const randomize = data => (
+  Math.floor(Math.random() * data.length - 1)
+);
+
+
+
+
+
+
+
+export const getPopMovieTotal = async (genre) => {
+
+  let arrListSeries = [];
+  
+  const rawResponse = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=1&language=es`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const response1 = await rawResponse.json();
+  arrListSeries.push(response1.results)
+
+  const rawResponse2 = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=2&language=es`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const response2 = await rawResponse2.json();
+  arrListSeries.push(response2.results)
+
+  const rawResponse3 = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=3&language=es`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const response3 = await rawResponse3.json();
+  arrListSeries.push(response3.results)
+
+  const rawResponse4 = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=4&language=es`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const response4 = await rawResponse4.json();
+  arrListSeries.push(response4.results)
+
+  const rawResponse5 = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=5&language=es`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const response5 = await rawResponse5.json();
+  arrListSeries.push(response5.results)
+
+  const rawResponse6 = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=6&language=es`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const response6 = await rawResponse6.json();
+  arrListSeries.push(response6.results)
+
+  const rawResponse7 = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=7&language=es`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const response7 = await rawResponse7.json();
+  arrListSeries.push(response7.results)
+
+  const rawResponse8 = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=8&language=es`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const response8 = await rawResponse8.json();
+  arrListSeries.push(response8.results)
+
+  const rawResponse9 = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=9&language=es`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const response9 = await rawResponse9.json();
+  arrListSeries.push(response9.results)
+
+  const rawResponse10 = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=e70366b2637b3709a898c38f0bc5bfab&page=10&language=es`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const response10 = await rawResponse10.json();
+  arrListSeries.push(response10.results);
+
+  const arrFinal = [];
+
+  arrListSeries.forEach((item) => {
+    item.forEach((element) => {
+      arrFinal.push(element);
+    });
+  });
+
+  return arrFinal
+}
