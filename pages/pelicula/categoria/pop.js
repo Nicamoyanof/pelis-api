@@ -22,12 +22,11 @@ function PelisPopulares(props) {
     const searchMovie = (e) => {
       setTotalList(
         props.listaTotal.filter((element) =>
-          element.name.toLowerCase().includes(e.target.value.toLowerCase())
+          element.title.toLowerCase().includes(e.target.value.toLowerCase())
         )
       );
     };
 
-    setTotalList;
 
     const addMoviesView = () => {
       setTotalMovie(totalMovie + 18);
@@ -63,7 +62,7 @@ function PelisPopulares(props) {
           ))}
         </div>
 
-        <button className="2xl:text-xl focus:outline-0  pl-3 pr-10 py-3 w-full  font-semibold tracking-wider bg-neutral-900	text-white border-solid border-b-4 rounded-md border-b-red-700" onClick={addMoviesView}>
+        <button className="2xl:text-xl focus:outline-0 flex justify-center my-8 mx-auto w-72  px-10 py-3 w-full  font-semibold tracking-wider bg-neutral-900	text-white border-solid border-4 rounded-md border-red-700"  onClick={addMoviesView}>
           MAS SERIES
         </button>
         {/* <div ref={moviesRef} ></div> */}
